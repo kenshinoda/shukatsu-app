@@ -5,29 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>就活戦闘力＆適性診断</title>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
-        .container { max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { font-size: 22px; text-align: center; color: #ff6b6b; margin-bottom: 10px; }
-        .section-title { font-size: 16px; color: #ff6b6b; margin-top: 20px; margin-bottom: 5px; border-bottom: 2px solid #ff6b6b; display: inline-block; padding-bottom: 3px; }
-        hr { border: none; border-top: 1px dashed #ccc; margin: 25px 0; }
-        label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
-        select, input[type="text"] { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; background-color: #fafafa; }
-        button { width: 100%; padding: 15px; background-color: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 25px; cursor: pointer; transition: 0.3s; }
-        button:hover { background-color: #ff4c4c; }
-        #result-area { display: none; margin-top: 20px; padding: 20px; background-color: #fff0f0; border-radius: 10px; border: 2px solid #ff6b6b; }
+        /* 全体のベース設定 */
+        body { 
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; 
+            padding: 20px 15px; 
+            background-color: #f0f4f8; 
+            color: #333; 
+            line-height: 1.6;
+        }
+        /* メインコンテナ（白いカード部分） */
+        .container { 
+            max-width: 500px; 
+            margin: 0 auto; 
+            background: #ffffff; 
+            padding: 35px 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+        }
+        /* タイトル・見出し */
+        h1 { 
+            font-size: 22px; 
+            text-align: center; 
+            color: #2c3e50; 
+            margin-bottom: 10px; 
+            font-weight: 700;
+        }
+        h1 span { color: #ff6b6b; }
+        .section-title { 
+            font-size: 16px; 
+            color: #2c3e50; 
+            margin-top: 35px; 
+            margin-bottom: 15px; 
+            padding-left: 12px;
+            border-left: 4px solid #ff6b6b; 
+            font-weight: 700;
+        }
+        hr { 
+            border: none; 
+            border-top: 1px solid #e1e5eb; 
+            margin: 35px 0; 
+        }
+        /* フォームのラベルと入力欄 */
+        label { 
+            display: block; 
+            margin-top: 20px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            color: #5a6a7c;
+        }
+        select, input[type="text"] { 
+            width: 100%; 
+            padding: 14px 15px; 
+            margin-top: 8px; 
+            border: 1px solid #cfd9e0; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 15px; 
+            background-color: #f8fafc; 
+            color: #333;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+        }
+        /* 選択欄の矢印デザイン */
+        select {
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
+        /* タップ（フォーカス）時のエフェクト */
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
+            background-color: #ffffff;
+        }
+        /* 送信ボタン */
+        button { 
+            width: 100%; 
+            padding: 18px; 
+            background: linear-gradient(135deg, #ff6b6b, #ff4c4c);
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            letter-spacing: 1px;
+            margin-top: 40px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+        button:disabled {
+            background: #ccc;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /* 結果表示エリア */
+        #result-area { 
+            display: none; 
+            margin-top: 20px; 
+            padding: 30px 25px; 
+            background-color: #fffafafa; 
+            border-radius: 16px; 
+            border: 2px solid #ff6b6b; 
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.1);
+        }
         .hidden { display: none; }
-        .tag { display: inline-block; background-color: #ff6b6b; color: white; padding: 5px 10px; border-radius: 20px; font-size: 14px; margin-bottom: 10px;}
-        a.btn-link { display: block; text-align: center; background-color: #00c300; color: white; padding: 12px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px;}
+        .tag { 
+            display: inline-block; 
+            background-color: #ff6b6b; 
+            color: white; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
+        }
+        a.btn-link { 
+            display: block; 
+            text-align: center; 
+            background: linear-gradient(135deg, #00c300, #00a800); 
+            color: white; 
+            padding: 16px; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            font-size: 16px;
+            margin-top: 15px;
+            box-shadow: 0 6px 15px rgba(0, 195, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        a.btn-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 195, 0, 0.3);
+        }
     </style>
 </head>
 <body>
 
 <div class="container" id="form-container">
-    <h1>📝 1分でわかる！就活適性診断</h1>
+    <h1>📝 1分でわかる！<span>就活適性診断</span></h1>
     <form id="diagnosis-form">
         
         <!-- ▼ ブロック1：基本情報 -->
-        <h3 class="section-title">👤 基本情報</h3>
+        <h3 class="section-title">基本情報</h3>
         <label>紹介者</label>
         <select id="introducer">
             <option value="" disabled selected>選択してください</option>
@@ -56,7 +188,7 @@
         <hr>
 
         <!-- ▼ ブロック2：現状確認 -->
-        <h3 class="section-title">📊 現状確認</h3>
+        <h3 class="section-title">現状確認</h3>
         <label>就活の進捗</label>
         <select id="progress">
             <option value="" disabled selected>選択してください</option>
@@ -89,7 +221,7 @@
         <hr>
 
         <!-- ▼ ブロック3：志向性 -->
-        <h3 class="section-title">🧭 志向性・価値観</h3>
+        <h3 class="section-title">志向性・価値観</h3>
         <label>【事業軸】どんな価値を提供したい？</label>
         <select id="axis_business">
             <option value="" disabled selected>選択してください</option>
@@ -139,15 +271,21 @@
 
 <!-- 診断結果表示エリア -->
 <div class="container" id="result-area">
-    <h2>🎉 診断完了！</h2>
-    <span class="tag" id="res-tag"></span>
+    <h2 style="color: #2c3e50; text-align: center; margin-bottom: 20px;">🎉 診断完了！</h2>
+    <div style="text-align: center;"><span class="tag" id="res-tag"></span></div>
     
-    <p><strong>🏢 あなたにおすすめの企業</strong><br><span id="res-company" style="white-space: pre-wrap; line-height: 1.6;"></span></p>
+    <p style="color: #5a6a7c; font-size: 14px; margin-bottom: 5px;"><strong>🏢 あなたにおすすめの企業</strong></p>
+    <p><span id="res-company" style="white-space: pre-wrap; line-height: 1.6; color: #333;"></span></p>
     
-    <p><strong>📅 おすすめの直近イベント</strong><br><span id="res-event" style="white-space: pre-wrap; line-height: 1.6;"></span></p>
+    <div style="margin: 20px 0; border-top: 1px dashed #ff6b6b;"></div>
+
+    <p style="color: #5a6a7c; font-size: 14px; margin-bottom: 5px;"><strong>📅 おすすめの直近イベント</strong></p>
+    <p><span id="res-event" style="white-space: pre-wrap; line-height: 1.6; color: #333;"></span></p>
     
-    <p><strong>💬 担当CAの面談予約</strong></p>
-    <a href="#" id="res-url" target="_blank" class="btn-link">面談を予約する</a>
+    <div style="margin: 25px 0 15px 0;">
+        <p style="text-align: center; color: #2c3e50; font-weight: bold; margin-bottom: 5px;">💬 担当CAの面談予約</p>
+        <a href="#" id="res-url" target="_blank" class="btn-link">LINEで面談を予約する</a>
+    </div>
 </div>
 
 <script>
@@ -161,12 +299,11 @@
             detailArea.classList.remove("hidden");
         } else {
             detailArea.classList.add("hidden");
-            document.getElementById("gakuchika_detail").value = ""; // 隠すときは中身も消す
+            document.getElementById("gakuchika_detail").value = ""; 
         }
     }
 
     function submitForm() {
-        // 各項目の値を取得
         const introducer = document.getElementById("introducer").value;
         const name = document.getElementById("name").value.trim();
         const university = document.getElementById("university").value.trim();
@@ -182,13 +319,11 @@
         const axis_workstyle = document.getElementById("axis_workstyle").value;
         const axis_skill = document.getElementById("axis_skill").value;
 
-        // 🚨【NEW】未入力チェック（バリデーション）
         if (!introducer || !name || !university || !faculty || !club || !progress || !anxiety || !gakuchika_exist || !axis_business || !axis_environment || !axis_location || !axis_workstyle || !axis_skill) {
             alert("⚠️ 未入力の項目があります。すべての項目を選択・入力してください！");
-            return; // ここで送信をストップする
+            return;
         }
 
-        // 🚨【NEW】ガクチカが「ある」のに詳細が空の場合のチェック
         if (gakuchika_exist === "ある" && !gakuchika_detail) {
             alert("⚠️ ガクチカ詳細を簡潔に入力してください！");
             return;
@@ -211,7 +346,6 @@
             axis_skill: axis_skill
         };
 
-        // 送信ボタンをローディング状態に
         const btn = document.querySelector("button");
         btn.innerText = "診断中...（数秒お待ちください）";
         btn.disabled = true;
@@ -230,6 +364,9 @@
                 document.getElementById("res-company").innerText = result.company;
                 document.getElementById("res-event").innerText = result.event;
                 document.getElementById("res-url").href = result.url;
+                
+                // スクロールを一番上に
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 alert("エラーが発生しました。");
                 btn.innerText = "診断結果を見る";
