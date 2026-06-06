@@ -218,7 +218,6 @@
         <!-- ▼ ブロック1：基本情報 -->
         <div class="section-title"><span class="material-symbols-outlined">person</span>基本情報</div>
         
-        <!-- 💡 ここを手入力に変更しました -->
         <label><span class="material-symbols-outlined">badge</span>紹介者</label>
         <input type="text" id="introducer" placeholder="例：チアフル 太郎（友達の名前など）">
 
@@ -351,7 +350,7 @@
 </div>
 
 <script>
-    // GASのAPI URL
+    // 💡【重要】ここにご自身のGASウェブアプリのURLを入力してください！
     const API_URL = "https://script.google.com/macros/s/AKfycbwEQ_wLXJblOShr0Y_IZLgfBFW0R4-F5-x8cenOJN0SXHF4aaXMLXXhuKoCh-52428p/exec";
 
     function toggleGakuchikaDetail() {
@@ -366,7 +365,6 @@
     }
 
     function submitForm() {
-        // 💡 ここも取得方法をテキスト入力用に微調整しました
         const introducer = document.getElementById("introducer").value.trim();
         const name = document.getElementById("name").value.trim();
         const university = document.getElementById("university").value.trim();
@@ -423,7 +421,13 @@
                 document.getElementById("form-container").classList.add("hidden");
                 document.getElementById("result-area").style.display = "block";
                 
-                document.getElementById("res-tag").innerText = result.tag;
+                // 🚨【NEW】「初心者 / Fパケ層」を学生向けに変換するロジック
+                let displayTag = result.tag;
+                if (displayTag === "初心者 / Fパケ層") {
+                    displayTag = "ポテンシャル・人物重視"; // 画面にはこのポジティブな言葉が表示されます！
+                }
+                document.getElementById("res-tag").innerText = displayTag;
+                
                 document.getElementById("res-company").innerText = result.company;
                 document.getElementById("res-event").innerText = result.event;
                 document.getElementById("res-url").href = result.url;
