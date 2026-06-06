@@ -8,10 +8,8 @@
         body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
         .container { max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h1 { font-size: 22px; text-align: center; color: #ff6b6b; margin-bottom: 10px; }
-        /* ⬇️ 追加した小見出しと区切り線のデザイン */
         .section-title { font-size: 16px; color: #ff6b6b; margin-top: 20px; margin-bottom: 5px; border-bottom: 2px solid #ff6b6b; display: inline-block; padding-bottom: 3px; }
         hr { border: none; border-top: 1px dashed #ccc; margin: 25px 0; }
-        
         label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
         select, input[type="text"] { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; background-color: #fafafa; }
         button { width: 100%; padding: 15px; background-color: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 25px; cursor: pointer; transition: 0.3s; }
@@ -39,13 +37,13 @@
         </select>
 
         <label>氏名</label>
-        <input type="text" id="name" required placeholder="例：チアフル 太郎">
+        <input type="text" id="name" placeholder="例：チアフル 太郎">
 
         <label>大学名</label>
-        <input type="text" id="university" required placeholder="例：佐賀大学">
+        <input type="text" id="university" placeholder="例：佐賀大学">
 
         <label>学部</label>
-        <input type="text" id="faculty" required placeholder="例：経済学部">
+        <input type="text" id="faculty" placeholder="例：経済学部">
 
         <label>スポーツ・部活経験</label>
         <select id="club">
@@ -55,7 +53,7 @@
             <option value="なし">なし</option>
         </select>
 
-        <hr> <!-- ✂️ ここに区切り線を入れました -->
+        <hr>
 
         <!-- ▼ ブロック2：現状確認 -->
         <h3 class="section-title">📊 現状確認</h3>
@@ -88,7 +86,7 @@
             <input type="text" id="gakuchika_detail" placeholder="例：カフェのアルバイトで新人育成">
         </div>
 
-        <hr> <!-- ✂️ ここにも区切り線を入れました -->
+        <hr>
 
         <!-- ▼ ブロック3：志向性 -->
         <h3 class="section-title">🧭 志向性・価値観</h3>
@@ -163,27 +161,57 @@
             detailArea.classList.remove("hidden");
         } else {
             detailArea.classList.add("hidden");
+            document.getElementById("gakuchika_detail").value = ""; // 隠すときは中身も消す
         }
     }
 
     function submitForm() {
+        // 各項目の値を取得
+        const introducer = document.getElementById("introducer").value;
+        const name = document.getElementById("name").value.trim();
+        const university = document.getElementById("university").value.trim();
+        const faculty = document.getElementById("faculty").value.trim();
+        const club = document.getElementById("club").value;
+        const progress = document.getElementById("progress").value;
+        const anxiety = document.getElementById("anxiety").value;
+        const gakuchika_exist = document.getElementById("gakuchika_exist").value;
+        const gakuchika_detail = document.getElementById("gakuchika_detail").value.trim();
+        const axis_business = document.getElementById("axis_business").value;
+        const axis_environment = document.getElementById("axis_environment").value;
+        const axis_location = document.getElementById("axis_location").value;
+        const axis_workstyle = document.getElementById("axis_workstyle").value;
+        const axis_skill = document.getElementById("axis_skill").value;
+
+        // 🚨【NEW】未入力チェック（バリデーション）
+        if (!introducer || !name || !university || !faculty || !club || !progress || !anxiety || !gakuchika_exist || !axis_business || !axis_environment || !axis_location || !axis_workstyle || !axis_skill) {
+            alert("⚠️ 未入力の項目があります。すべての項目を選択・入力してください！");
+            return; // ここで送信をストップする
+        }
+
+        // 🚨【NEW】ガクチカが「ある」のに詳細が空の場合のチェック
+        if (gakuchika_exist === "ある" && !gakuchika_detail) {
+            alert("⚠️ ガクチカ詳細を簡潔に入力してください！");
+            return;
+        }
+
         const data = {
-            introducer: document.getElementById("introducer").value,
-            name: document.getElementById("name").value,
-            university: document.getElementById("university").value,
-            faculty: document.getElementById("faculty").value,
-            club: document.getElementById("club").value,
-            progress: document.getElementById("progress").value,
-            anxiety: document.getElementById("anxiety").value,
-            gakuchika_exist: document.getElementById("gakuchika_exist").value,
-            gakuchika_detail: document.getElementById("gakuchika_detail").value,
-            axis_business: document.getElementById("axis_business").value,
-            axis_environment: document.getElementById("axis_environment").value,
-            axis_location: document.getElementById("axis_location").value,
-            axis_workstyle: document.getElementById("axis_workstyle").value,
-            axis_skill: document.getElementById("axis_skill").value
+            introducer: introducer,
+            name: name,
+            university: university,
+            faculty: faculty,
+            club: club,
+            progress: progress,
+            anxiety: anxiety,
+            gakuchika_exist: gakuchika_exist,
+            gakuchika_detail: gakuchika_detail,
+            axis_business: axis_business,
+            axis_environment: axis_environment,
+            axis_location: axis_location,
+            axis_workstyle: axis_workstyle,
+            axis_skill: axis_skill
         };
 
+        // 送信ボタンをローディング状態に
         const btn = document.querySelector("button");
         btn.innerText = "診断中...（数秒お待ちください）";
         btn.disabled = true;
