@@ -7,9 +7,13 @@
     <style>
         body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
         .container { max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { font-size: 22px; text-align: center; color: #ff6b6b; margin-bottom: 20px; }
+        h1 { font-size: 22px; text-align: center; color: #ff6b6b; margin-bottom: 10px; }
+        /* ⬇️ 追加した小見出しと区切り線のデザイン */
+        .section-title { font-size: 16px; color: #ff6b6b; margin-top: 20px; margin-bottom: 5px; border-bottom: 2px solid #ff6b6b; display: inline-block; padding-bottom: 3px; }
+        hr { border: none; border-top: 1px dashed #ccc; margin: 25px 0; }
+        
         label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
-        select, input[type="text"] { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        select, input[type="text"] { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; background-color: #fafafa; }
         button { width: 100%; padding: 15px; background-color: #ff6b6b; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 25px; cursor: pointer; transition: 0.3s; }
         button:hover { background-color: #ff4c4c; }
         #result-area { display: none; margin-top: 20px; padding: 20px; background-color: #fff0f0; border-radius: 10px; border: 2px solid #ff6b6b; }
@@ -23,13 +27,15 @@
 <div class="container" id="form-container">
     <h1>📝 1分でわかる！就活適性診断</h1>
     <form id="diagnosis-form">
-        <!-- 基本情報 -->
+        
+        <!-- ▼ ブロック1：基本情報 -->
+        <h3 class="section-title">👤 基本情報</h3>
         <label>紹介者</label>
         <select id="introducer">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="福島仁史">福島仁史</option>
             <option value="尾田健槙">尾田健槙</option>
-            <!-- メンバーを追加 -->
+            <!-- 他のメンバーもここに追加してください -->
         </select>
 
         <label>氏名</label>
@@ -43,16 +49,19 @@
 
         <label>スポーツ・部活経験</label>
         <select id="club">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="スポーツ経験6年以上（体育会系など）">スポーツ経験6年以上（体育会系など）</option>
             <option value="サークル・文化系部活">サークル・文化系部活</option>
             <option value="なし">なし</option>
         </select>
 
-        <!-- 現状確認 -->
+        <hr> <!-- ✂️ ここに区切り線を入れました -->
+
+        <!-- ▼ ブロック2：現状確認 -->
+        <h3 class="section-title">📊 現状確認</h3>
         <label>就活の進捗</label>
         <select id="progress">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="まだ何もしていない">まだ何もしていない</option>
             <option value="自己分析・業界研究中">自己分析・業界研究中</option>
             <option value="インターン・選考参加中">インターン・選考参加中</option>
@@ -60,7 +69,7 @@
 
         <label>一番の不安</label>
         <select id="anxiety">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="自己分析が浅い">自己分析が浅い</option>
             <option value="ガクチカがない">ガクチカがない</option>
             <option value="面接が不安">面接が不安</option>
@@ -69,7 +78,7 @@
 
         <label>ガクチカの有無</label>
         <select id="gakuchika_exist" onchange="toggleGakuchikaDetail()">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="ある">ある</option>
             <option value="ない">ない</option>
         </select>
@@ -79,10 +88,13 @@
             <input type="text" id="gakuchika_detail" placeholder="例：カフェのアルバイトで新人育成">
         </div>
 
-        <!-- 志向性 -->
+        <hr> <!-- ✂️ ここにも区切り線を入れました -->
+
+        <!-- ▼ ブロック3：志向性 -->
+        <h3 class="section-title">🧭 志向性・価値観</h3>
         <label>【事業軸】どんな価値を提供したい？</label>
         <select id="axis_business">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="社会課題を解決したい">社会課題を解決したい</option>
             <option value="直接的な影響を与え感謝されたい">直接的な影響を与え感謝されたい</option>
             <option value="その他・まだわからない">その他・まだわからない</option>
@@ -90,7 +102,7 @@
 
         <label>【環境・社風軸】どんな環境で働きたい？</label>
         <select id="axis_environment">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="突き抜けて稼ぎたい・上を目指したい">突き抜けて稼ぎたい・上を目指したい</option>
             <option value="働きやすさや人の良さを重視したい">働きやすさや人の良さを重視したい</option>
             <option value="大手企業や安定性を重視したい">大手企業や安定性を重視したい</option>
@@ -99,7 +111,7 @@
 
         <label>【勤務地軸】将来はどこで働きたい？</label>
         <select id="axis_location">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="東京などの主要都市">東京などの主要都市</option>
             <option value="地元や地方">地元や地方</option>
             <option value="どこでもいい・フルリモート">どこでもいい・フルリモート</option>
@@ -107,7 +119,7 @@
 
         <label>【働き方軸】どんなスタイルで働きたい？</label>
         <select id="axis_workstyle">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="若手から裁量を持ってバリバリ">若手から裁量を持ってバリバリ</option>
             <option value="プライベートやワークライフバランスも充実させたい">プライベートやワークライフバランスも充実させたい</option>
             <option value="トレンドや最先端の環境で華やかに働きたい">トレンドや最先端の環境で華やかに働きたい</option>
@@ -115,7 +127,7 @@
 
         <label>【職種・スキル軸】将来どんな力を身につけたい？</label>
         <select id="axis_skill">
-            <option value="">選択してください</option>
+            <option value="" disabled selected>選択してください</option>
             <option value="営業力・交渉力を磨きたい">営業力・交渉力を磨きたい</option>
             <option value="企画や事業立ち上げがしたい">企画や事業立ち上げがしたい</option>
             <option value="ITや専門スキルを身につけたい">ITや専門スキルを身につけたい</option>
