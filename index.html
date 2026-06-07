@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
     <style>
-        /* ※デザイン部分は前回と同じです */
         body { font-family: 'Noto Sans JP', sans-serif; padding: 20px 15px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); background-attachment: fixed; color: #333; line-height: 1.6; margin: 0;}
         .container { max-width: 500px; margin: 0 auto; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 35px 25px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15); border: 1px solid rgba(255, 255, 255, 0.5);}
         h1 { font-size: 24px; text-align: center; color: #2c3e50; margin-bottom: 5px; font-weight: 700;}
@@ -27,12 +26,46 @@
         #result-area { display: none; margin-top: 20px; padding: 35px 25px; background: rgba(255, 255, 255, 0.95); border-radius: 20px; border: 2px solid #ff6b6b; box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);}
         .hidden { display: none; }
         .tag { display: inline-block; background: linear-gradient(135deg, #ff6b6b, #ff4c4c); color: white; padding: 8px 18px; border-radius: 25px; font-size: 15px; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);}
-        .result-box { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #ff6b6b;}
-        .result-box p { margin: 0; color: #2d3748; line-height: 1.7; font-size: 15px;}
-        .result-box strong { display: flex; align-items: center; gap: 8px; color: #ff6b6b; margin-bottom: 10px; font-size: 16px;}
-        /* 🌟 AI分析結果用のデザイン */
+        
         .ai-reason-box { background: #fff5f5; border: 1px solid #fed7d7; border-radius: 12px; padding: 18px; margin-bottom: 25px; font-size: 14.5px; color: #c53030; line-height: 1.7; font-weight: 600;}
         .ai-reason-box strong { color: #e53e3e; display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 16px;}
+        
+        .result-box { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #ff6b6b;}
+        .result-box strong { display: flex; align-items: center; gap: 8px; color: #ff6b6b; margin-bottom: 15px; font-size: 16px;}
+        .result-box p { margin: 0; color: #2d3748; line-height: 1.7; font-size: 15px;}
+
+        /* 🏢 企業カードの新しいデザイン */
+        .company-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .company-card:last-child {
+            margin-bottom: 0;
+        }
+        .company-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16.5px;
+            color: #2c3e50;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .company-card p {
+            margin: 0;
+            font-size: 13.5px;
+            color: #4a5568;
+            line-height: 1.6;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
         a.btn-link { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #00c300, #00a800); color: white; padding: 18px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 17px; margin-top: 10px; box-shadow: 0 8px 20px rgba(0, 195, 0, 0.3); transition: all 0.3s ease;}
         a.btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 195, 0, 0.4); filter: brightness(1.1);}
     </style>
@@ -144,16 +177,17 @@
     <h2 style="color: #2c3e50; text-align: center; margin-top: 0; margin-bottom: 20px;">🎉 診断完了！</h2>
     <div style="text-align: center;"><span class="tag" id="res-tag"></span></div>
     
-    <!-- 🌟【NEW】AIからの診断理由表示ボックス -->
     <div class="ai-reason-box">
         <strong><span class="material-symbols-outlined">psychology</span> AI分析コメント</strong>
         <p id="res-reason" style="margin: 0;"></p>
     </div>
 
+    <!-- 🌟【UI改善】ここをカード型出力用に変更 -->
     <div class="result-box">
         <strong><span class="material-symbols-outlined">apartment</span>あなたにおすすめの企業</strong>
-        <p id="res-company" style="white-space: pre-wrap;"></p>
+        <div id="res-company-container"></div>
     </div>
+    
     <div class="result-box">
         <strong><span class="material-symbols-outlined">event</span>おすすめの直近イベント</strong>
         <p id="res-event" style="white-space: pre-wrap;"></p>
@@ -234,13 +268,53 @@
                     displayTag = "ポテンシャル・人物重視"; 
                 }
                 document.getElementById("res-tag").innerText = displayTag;
-                
-                // 🌟【NEW】AIからの根拠メッセージを表示
                 document.getElementById("res-reason").innerText = result.reason;
                 
-                document.getElementById("res-company").innerText = result.company;
-                document.getElementById("res-event").innerText = result.event;
-                document.getElementById("res-url").href = result.url;
+                // 🌟【NEW】企業情報を綺麗にカード型に分ける魔法の処理
+                const companyArea = document.getElementById("res-company-container");
+                companyArea.innerHTML = ""; // 中身をクリア
+                
+                // GASからのデータがどういう形式で来ても安全に文字列にする
+                let compText = Array.isArray(result.company) && Array.isArray(result.company) ? result.company : String(result.company);
+                
+                if (compText && compText !== "まずはチアフルキャリア面談で一緒に探そう！") {
+                    const companies = compText.split('\n'); // 企業ごとに分割
+                    companies.forEach(comp => {
+                        if (!comp.trim()) return;
+                        
+                        // 「：」を基準にして「企業名」と「説明文」に分ける
+                        const parts = comp.split('：');
+                        const compName = parts ? parts.trim() : "";
+                        const compDesc = parts.slice(1).join('：').trim(); 
+
+                        // 企業ごとのカード（枠）を作る
+                        const card = document.createElement("div");
+                        card.className = "company-card";
+
+                        // 企業名（大きめ・太字）
+                        const nameEl = document.createElement("h3");
+                        nameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size: 20px; color: #ff6b6b;">domain</span>${compName}`;
+                        card.appendChild(nameEl);
+
+                        // 説明文（少し小さめ・背景色つき）
+                        if (compDesc) {
+                            const descEl = document.createElement("p");
+                            descEl.innerText = compDesc;
+                            card.appendChild(descEl);
+                        }
+                        
+                        companyArea.appendChild(card);
+                    });
+                } else {
+                    companyArea.innerText = compText || "おすすめ企業が見つかりませんでした。";
+                }
+
+                // イベントとURLも安全に取得して表示
+                let eventText = Array.isArray(result.event) && Array.isArray(result.event) ? result.event[1] : result.event;
+                let urlText = Array.isArray(result.url) && Array.isArray(result.url) ? result.url[2] : result.url;
+                
+                document.getElementById("res-event").innerText = eventText;
+                document.getElementById("res-url").href = urlText;
                 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
