@@ -202,7 +202,7 @@
 </div>
 
 <script>
-    // 💡【重要】ここにGASで新しく発行したウェブアプリのURLを入力してください！
+    // 💡【重要】GASのウェブアプリURL
     const API_URL = "https://script.google.com/macros/s/AKfycbwEQ_wLXJblOShr0Y_IZLgfBFW0R4-F5-x8cenOJN0SXHF4aaXMLXXhuKoCh-52428p/exec";
 
     function toggleGakuchikaDetail() {
@@ -270,33 +270,27 @@
                 document.getElementById("res-tag").innerText = displayTag;
                 document.getElementById("res-reason").innerText = result.reason;
                 
-                // 🌟【NEW】企業情報を綺麗にカード型に分ける魔法の処理
                 const companyArea = document.getElementById("res-company-container");
-                companyArea.innerHTML = ""; // 中身をクリア
+                companyArea.innerHTML = ""; 
                 
-                // GASからのデータがどういう形式で来ても安全に文字列にする
-                let compText = Array.isArray(result.company) && Array.isArray(result.company) ? result.company : String(result.company);
+                let compText = Array.isArray(result.company) ? String(result.company || "") : String(result.company || "");
                 
                 if (compText && compText !== "まずはチアフルキャリア面談で一緒に探そう！") {
-                    const companies = compText.split('\n'); // 企業ごとに分割
+                    const companies = compText.split('\n'); 
                     companies.forEach(comp => {
                         if (!comp.trim()) return;
                         
-                        // 「：」を基準にして「企業名」と「説明文」に分ける
                         const parts = comp.split('：');
                         const compName = parts ? parts.trim() : "";
                         const compDesc = parts.slice(1).join('：').trim(); 
 
-                        // 企業ごとのカード（枠）を作る
                         const card = document.createElement("div");
                         card.className = "company-card";
 
-                        // 企業名（大きめ・太字）
                         const nameEl = document.createElement("h3");
                         nameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size: 20px; color: #ff6b6b;">domain</span>${compName}`;
                         card.appendChild(nameEl);
 
-                        // 説明文（少し小さめ・背景色つき）
                         if (compDesc) {
                             const descEl = document.createElement("p");
                             descEl.innerText = compDesc;
@@ -309,9 +303,8 @@
                     companyArea.innerText = compText || "おすすめ企業が見つかりませんでした。";
                 }
 
-                // イベントとURLも安全に取得して表示
-                let eventText = Array.isArray(result.event) && Array.isArray(result.event) ? result.event[1] : result.event;
-                let urlText = Array.isArray(result.url) && Array.isArray(result.url) ? result.url[2] : result.url;
+                let eventText = Array.isArray(result.event) ? String(result.event || "") : String(result.event || "");
+                let urlText = Array.isArray(result.url) ? String(result.url || "") : String(result.url || "");
                 
                 document.getElementById("res-event").innerText = eventText;
                 document.getElementById("res-url").href = urlText;
