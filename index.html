@@ -318,7 +318,7 @@
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("通信エラーが発生しました。");
+            alert("通信エラーが発生しました。設定（実行承認や全員アクセスの権限）をご確認ください。");
             btn.innerHTML = '<span class="material-symbols-outlined">magic_button</span>診断結果を見る';
             btn.disabled = false;
         });
