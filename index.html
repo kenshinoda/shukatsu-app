@@ -4,207 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>就活戦闘力＆適性診断</title>
-    
-    <!-- Google Fonts と Material Icons の読み込み -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
     <style>
-        /* 🎨 背景を美しいグラデーションに */
-        body { 
-            font-family: 'Noto Sans JP', sans-serif; 
-            padding: 20px 15px; 
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            background-attachment: fixed;
-            color: #333; 
-            line-height: 1.6;
-            margin: 0;
-        }
-        
-        /* 🧊 メインコンテナ：グラスモーフィズム（すりガラス効果） */
-        .container { 
-            max-width: 500px; 
-            margin: 0 auto; 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 35px 25px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15); 
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        h1 { 
-            font-size: 24px; 
-            text-align: center; 
-            color: #2c3e50; 
-            margin-bottom: 5px; 
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            text-align: center;
-            font-size: 13px;
-            color: #ff6b6b;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        /* 🏷️ セクション見出しのデザイン */
-        .section-title { 
-            font-size: 17px; 
-            color: #2c3e50; 
-            margin-top: 35px; 
-            margin-bottom: 15px; 
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 10px 15px;
-            border-radius: 10px;
-        }
+        /* ※デザイン部分は前回と同じです */
+        body { font-family: 'Noto Sans JP', sans-serif; padding: 20px 15px; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); background-attachment: fixed; color: #333; line-height: 1.6; margin: 0;}
+        .container { max-width: 500px; margin: 0 auto; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 35px 25px; border-radius: 20px; box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15); border: 1px solid rgba(255, 255, 255, 0.5);}
+        h1 { font-size: 24px; text-align: center; color: #2c3e50; margin-bottom: 5px; font-weight: 700;}
+        .subtitle { text-align: center; font-size: 13px; color: #ff6b6b; margin-bottom: 25px; font-weight: 600;}
+        .section-title { font-size: 17px; color: #2c3e50; margin-top: 35px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-weight: 700; background: rgba(255, 107, 107, 0.1); padding: 10px 15px; border-radius: 10px;}
         .section-title .material-symbols-outlined { color: #ff6b6b; }
-
-        hr { 
-            border: none; 
-            border-top: 2px dashed rgba(255, 107, 107, 0.4); 
-            margin: 30px 0; 
-        }
-
-        /* 📝 ラベル（質問項目）のデザイン */
-        label { 
-            display: flex; 
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            color: #4a5568;
-        }
-        label .material-symbols-outlined {
-            font-size: 18px;
-            color: #a0aec0;
-        }
-
-        /* ✍️ 入力フォーム・プルダウンのデザイン */
-        select, input[type="text"] { 
-            width: 100%; 
-            padding: 15px 16px; 
-            margin-top: 8px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 12px; 
-            box-sizing: border-box; 
-            font-size: 15px; 
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: rgba(255, 255, 255, 0.9); 
-            color: #2d3748;
-            transition: all 0.3s ease;
-            -webkit-appearance: none;
-        }
-        
-        select {
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a0aec0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-        }
-
-        select:focus, input[type="text"]:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
-            background-color: #ffffff;
-        }
-
-        /* 🔘 送信ボタンのデザイン */
-        button { 
-            width: 100%; 
-            padding: 18px; 
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff4c4c 100%);
-            color: white; 
-            border: none; 
-            border-radius: 12px; 
-            font-size: 18px; 
-            font-weight: 700; 
-            letter-spacing: 2px;
-            margin-top: 40px; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        button:hover { 
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(255, 107, 107, 0.4);
-            filter: brightness(1.1);
-        }
-        button:disabled {
-            background: #cbd5e0;
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* 🏆 結果表示エリア */
-        #result-area { 
-            display: none; 
-            margin-top: 20px; 
-            padding: 35px 25px; 
-            background: rgba(255, 255, 255, 0.95); 
-            border-radius: 20px; 
-            border: 2px solid #ff6b6b; 
-            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
-        }
+        hr { border: none; border-top: 2px dashed rgba(255, 107, 107, 0.4); margin: 30px 0; }
+        label { display: flex; align-items: center; gap: 8px; margin-top: 20px; font-weight: 600; font-size: 14px; color: #4a5568;}
+        label .material-symbols-outlined { font-size: 18px; color: #a0aec0;}
+        select, input[type="text"] { width: 100%; padding: 15px 16px; margin-top: 8px; border: 2px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; font-size: 15px; font-family: 'Noto Sans JP', sans-serif; background-color: rgba(255, 255, 255, 0.9); color: #2d3748; transition: all 0.3s ease; -webkit-appearance: none;}
+        select { background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a0aec0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto;}
+        select:focus, input[type="text"]:focus { outline: none; border-color: #ff6b6b; box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15); background-color: #ffffff;}
+        button { width: 100%; padding: 18px; background: linear-gradient(135deg, #ff6b6b 0%, #ff4c4c 100%); color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; letter-spacing: 2px; margin-top: 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px;}
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 107, 107, 0.4); filter: brightness(1.1);}
+        button:disabled { background: #cbd5e0; box-shadow: none; cursor: not-allowed; transform: none;}
+        #result-area { display: none; margin-top: 20px; padding: 35px 25px; background: rgba(255, 255, 255, 0.95); border-radius: 20px; border: 2px solid #ff6b6b; box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);}
         .hidden { display: none; }
-        
-        .tag { 
-            display: inline-block; 
-            background: linear-gradient(135deg, #ff6b6b, #ff4c4c); 
-            color: white; 
-            padding: 8px 18px; 
-            border-radius: 25px; 
-            font-size: 15px; 
-            font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .result-box {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff6b6b;
-        }
-
+        .tag { display: inline-block; background: linear-gradient(135deg, #ff6b6b, #ff4c4c); color: white; padding: 8px 18px; border-radius: 25px; font-size: 15px; font-weight: bold; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);}
+        .result-box { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #ff6b6b;}
         .result-box p { margin: 0; color: #2d3748; line-height: 1.7; font-size: 15px;}
         .result-box strong { display: flex; align-items: center; gap: 8px; color: #ff6b6b; margin-bottom: 10px; font-size: 16px;}
-
-        a.btn-link { 
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #00c300, #00a800); 
-            color: white; 
-            padding: 18px; 
-            text-decoration: none; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            font-size: 17px;
-            margin-top: 10px;
-            box-shadow: 0 8px 20px rgba(0, 195, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        a.btn-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 195, 0, 0.4);
-            filter: brightness(1.1);
-        }
+        /* 🌟 AI分析結果用のデザイン */
+        .ai-reason-box { background: #fff5f5; border: 1px solid #fed7d7; border-radius: 12px; padding: 18px; margin-bottom: 25px; font-size: 14.5px; color: #c53030; line-height: 1.7; font-weight: 600;}
+        .ai-reason-box strong { color: #e53e3e; display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 16px;}
+        a.btn-link { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #00c300, #00a800); color: white; padding: 18px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 17px; margin-top: 10px; box-shadow: 0 8px 20px rgba(0, 195, 0, 0.3); transition: all 0.3s ease;}
+        a.btn-link:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 195, 0, 0.4); filter: brightness(1.1);}
     </style>
 </head>
 <body>
@@ -214,22 +44,16 @@
     <div class="subtitle">AIがあなたの強みを分析し、最適な企業をご提案します</div>
 
     <form id="diagnosis-form">
-        
         <!-- ▼ ブロック1：基本情報 -->
         <div class="section-title"><span class="material-symbols-outlined">person</span>基本情報</div>
-        
         <label><span class="material-symbols-outlined">badge</span>紹介者</label>
         <input type="text" id="introducer" placeholder="例：チアフル 太郎（友達の名前など）">
-
         <label><span class="material-symbols-outlined">face</span>氏名</label>
         <input type="text" id="name" placeholder="例：チアフル 次郎">
-
         <label><span class="material-symbols-outlined">school</span>大学名</label>
         <input type="text" id="university" placeholder="例：佐賀大学">
-
         <label><span class="material-symbols-outlined">menu_book</span>学部</label>
         <input type="text" id="faculty" placeholder="例：経済学部">
-
         <label><span class="material-symbols-outlined">sports_baseball</span>スポーツ・部活経験</label>
         <select id="club">
             <option value="" disabled selected>選択してください</option>
@@ -237,12 +61,10 @@
             <option value="サークル・文化系部活">サークル・文化系部活</option>
             <option value="なし">なし</option>
         </select>
-
         <hr>
 
         <!-- ▼ ブロック2：現状確認 -->
         <div class="section-title"><span class="material-symbols-outlined">analytics</span>現状確認</div>
-        
         <label><span class="material-symbols-outlined">trending_up</span>就活の進捗</label>
         <select id="progress">
             <option value="" disabled selected>選択してください</option>
@@ -250,7 +72,6 @@
             <option value="自己分析・業界研究中">自己分析・業界研究中</option>
             <option value="インターン・選考参加中">インターン・選考参加中</option>
         </select>
-
         <label><span class="material-symbols-outlined">sentiment_dissatisfied</span>一番の不安</label>
         <select id="anxiety">
             <option value="" disabled selected>選択してください</option>
@@ -259,24 +80,20 @@
             <option value="面接が不安">面接が不安</option>
             <option value="何から始めればいいかわからない">何から始めればいいかわからない</option>
         </select>
-
         <label><span class="material-symbols-outlined">history_edu</span>ガクチカの有無</label>
         <select id="gakuchika_exist" onchange="toggleGakuchikaDetail()">
             <option value="" disabled selected>選択してください</option>
             <option value="ある">ある</option>
             <option value="ない">ない</option>
         </select>
-
         <div id="gakuchika-detail-area" class="hidden">
             <label><span class="material-symbols-outlined">edit_note</span>ガクチカ詳細（簡潔に）</label>
             <input type="text" id="gakuchika_detail" placeholder="例：カフェのアルバイトで新人育成">
         </div>
-
         <hr>
 
         <!-- ▼ ブロック3：志向性 -->
         <div class="section-title"><span class="material-symbols-outlined">explore</span>志向性・価値観</div>
-        
         <label><span class="material-symbols-outlined">handshake</span>【事業軸】どんな価値を提供したい？</label>
         <select id="axis_business">
             <option value="" disabled selected>選択してください</option>
@@ -284,7 +101,6 @@
             <option value="直接的な影響を与え感謝されたい">直接的な影響を与え感謝されたい</option>
             <option value="その他・まだわからない">その他・まだわからない</option>
         </select>
-
         <label><span class="material-symbols-outlined">domain</span>【環境・社風軸】どんな環境で働きたい？</label>
         <select id="axis_environment">
             <option value="" disabled selected>選択してください</option>
@@ -293,7 +109,6 @@
             <option value="大手企業や安定性を重視したい">大手企業や安定性を重視したい</option>
             <option value="その他・まだわからない">その他・まだわからない</option>
         </select>
-
         <label><span class="material-symbols-outlined">location_on</span>【勤務地軸】将来はどこで働きたい？</label>
         <select id="axis_location">
             <option value="" disabled selected>選択してください</option>
@@ -301,7 +116,6 @@
             <option value="地元や地方">地元や地方</option>
             <option value="どこでもいい・フルリモート">どこでもいい・フルリモート</option>
         </select>
-
         <label><span class="material-symbols-outlined">work</span>【働き方軸】どんなスタイルで働きたい？</label>
         <select id="axis_workstyle">
             <option value="" disabled selected>選択してください</option>
@@ -309,7 +123,6 @@
             <option value="プライベートやワークライフバランスも充実させたい">プライベートやワークライフバランスも充実させたい</option>
             <option value="トレンドや最先端の環境で華やかに働きたい">トレンドや最先端の環境で華やかに働きたい</option>
         </select>
-
         <label><span class="material-symbols-outlined">military_tech</span>【職種・スキル軸】将来どんな力を身につけたい？</label>
         <select id="axis_skill">
             <option value="" disabled selected>選択してください</option>
@@ -331,11 +144,16 @@
     <h2 style="color: #2c3e50; text-align: center; margin-top: 0; margin-bottom: 20px;">🎉 診断完了！</h2>
     <div style="text-align: center;"><span class="tag" id="res-tag"></span></div>
     
+    <!-- 🌟【NEW】AIからの診断理由表示ボックス -->
+    <div class="ai-reason-box">
+        <strong><span class="material-symbols-outlined">psychology</span> AI分析コメント</strong>
+        <p id="res-reason" style="margin: 0;"></p>
+    </div>
+
     <div class="result-box">
         <strong><span class="material-symbols-outlined">apartment</span>あなたにおすすめの企業</strong>
         <p id="res-company" style="white-space: pre-wrap;"></p>
     </div>
-    
     <div class="result-box">
         <strong><span class="material-symbols-outlined">event</span>おすすめの直近イベント</strong>
         <p id="res-event" style="white-space: pre-wrap;"></p>
@@ -351,8 +169,7 @@
 
 <script>
     // 💡【重要】ここにGASで新しく発行したウェブアプリのURLを入力してください！
-    // 🚨絶対に「AIza...」から始まるAPIキーは貼らないでください！
-    const API_URL = "https://script.google.com/macros/s/AKfycbwEQ_wLXJblOShr0Y_IZLgfBFW0R4-F5-x8cenOJN0SXHF4aaXMLXXhuKoCh-52428p/exec";
+    const API_URL = "https://script.google.com/macros/s/〜〜〜/exec";
 
     function toggleGakuchikaDetail() {
         const exist = document.getElementById("gakuchika_exist").value;
@@ -385,27 +202,17 @@
             alert("⚠️ 未入力の項目があります。すべての項目を選択・入力してください！");
             return;
         }
-
         if (gakuchika_exist === "ある" && !gakuchika_detail) {
             alert("⚠️ ガクチカ詳細を簡潔に入力してください！");
             return;
         }
 
         const data = {
-            introducer: introducer,
-            name: name,
-            university: university,
-            faculty: faculty,
-            club: club,
-            progress: progress,
-            anxiety: anxiety,
-            gakuchika_exist: gakuchika_exist,
-            gakuchika_detail: gakuchika_detail,
-            axis_business: axis_business,
-            axis_environment: axis_environment,
-            axis_location: axis_location,
-            axis_workstyle: axis_workstyle,
-            axis_skill: axis_skill
+            introducer: introducer, name: name, university: university, faculty: faculty,
+            club: club, progress: progress, anxiety: anxiety, gakuchika_exist: gakuchika_exist,
+            gakuchika_detail: gakuchika_detail, axis_business: axis_business, 
+            axis_environment: axis_environment, axis_location: axis_location, 
+            axis_workstyle: axis_workstyle, axis_skill: axis_skill
         };
 
         const btn = document.querySelector("button");
@@ -422,12 +229,14 @@
                 document.getElementById("form-container").classList.add("hidden");
                 document.getElementById("result-area").style.display = "block";
                 
-                // 🚨「初心者 / Fパケ層」を学生向けに変換するロジック
                 let displayTag = result.tag;
                 if (displayTag === "初心者 / Fパケ層") {
                     displayTag = "ポテンシャル・人物重視"; 
                 }
                 document.getElementById("res-tag").innerText = displayTag;
+                
+                // 🌟【NEW】AIからの根拠メッセージを表示
+                document.getElementById("res-reason").innerText = result.reason;
                 
                 document.getElementById("res-company").innerText = result.company;
                 document.getElementById("res-event").innerText = result.event;
